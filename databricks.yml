@@ -1,11 +1,11 @@
 # Filename: databricks.yml
 bundle:
-  name: jenkins-demo
+  name: workspace-demo
 
 variables:
   job_prefix:
     description: A unifying prefix for this bundle's job and task names.
-    default: sk
+    default: dbr
   spark_version:
     description: The cluster's Spark version ID.
     default: 13.3.x-scala2.12

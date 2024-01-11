@@ -24,13 +24,8 @@ phases:
       - sudo apt-get install jq -y
       - sudo apt install pip -y
       - pip install --upgrade wheel
-    finally:
-      - echo This always runs even if the update or install command fails 
-  pre_build:
-    commands:
-      - echo Entered the pre_build phase...
-    finally:
-      - echo This always runs even if the login command fails 
+    
+  
   build:
     commands:
       - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET}"
@@ -40,11 +35,10 @@ phases:
       - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} evaluate-notebook-runs"
       - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET} test-result"
      
-    finally:
-      - echo This always runs even if the install command fails
-  post_build:
-    commands:
-        # - 
+   
+  # post_build:
+  #   commands:
+
 
 # artifacts:
 #   type: zip
