@@ -1,6 +1,6 @@
 # Filename: databricks.yml
 bundle:
-  name: workspace-demo
+  name: cluster-demo
 
 variables:
   job_prefix:
