@@ -1,0 +1,52 @@
+version: 0.2
+os: linux
+
+env:
+  variables:
+    GITBRANCH: "main"
+    DBCLIPATH: "/usr/local/bin"
+    JQPATH: "/usr/bin"
+    JOBPREFIX: "db"
+    BUNDLETARGET: "dev"
+  parameter-store:
+    DATABRICKS_HOST: DATABRICKS_HOST
+    DATABRICKS_TOKEN: DATABRICKS_TOKEN
+
+phases:
+  install:
+    commands:
+      - sudo apt-get update
+      - sudo apt install plocate -y
+      - sudo apt-get install unzip -y
+      - sudo apt-get install openjdk-17-jre -y
+      - sudo apt-get install junit -y
+      - curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+      - sudo apt-get install jq -y
+      - sudo apt install pip -y
+      - pip install --upgrade wheel
+    finally:
+      - echo This always runs even if the update or install command fails 
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
+    finally:
+      - echo This always runs even if the login command fails 
+  build:
+    commands:
+      - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET}"
+      - "${DBCLIPATH}/databricks bundle deploy -t ${BUNDLETARGET}"
+      - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-unit-tests"
+      - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-dabdemo-notebook"
+      - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} evaluate-notebook-runs"
+      - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET} test-result"
+     
+    finally:
+      - echo This always runs even if the install command fails
+  post_build:
+    commands:
+        # - 
+
+# artifacts:
+#   type: zip
+#   files:
+#     - '**/*.xml'
