@@ -34,11 +34,7 @@ phases:
       - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-dabdemo-notebook"
       - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} evaluate-notebook-runs"
       - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET} test-result"
-     
-   
-  # post_build:
-  #   commands:
-
+  
 
 # artifacts:
 #   type: zip
