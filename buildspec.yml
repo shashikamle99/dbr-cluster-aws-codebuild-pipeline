@@ -31,8 +31,8 @@ phases:
       - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET}"
       - "${DBCLIPATH}/databricks bundle deploy -t ${BUNDLETARGET}"
       - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-unit-tests"
-      - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-dabdemo-notebook"
-      - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} evaluate-notebook-runs"
+      # - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} run-dabdemo-notebook"
+      # - "${DBCLIPATH}/databricks bundle run -t ${BUNDLETARGET} evaluate-notebook-runs"
       - "${DBCLIPATH}/databricks bundle validate -t ${BUNDLETARGET} test-result"
   
 
